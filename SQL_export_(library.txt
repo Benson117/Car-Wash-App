@@ -1,0 +1,35 @@
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS student;
+DROP TABLE IF EXISTS teacher;
+DROP TABLE IF EXISTS fees;
+
+
+CREATE TABLE users (
+username VARCHAR(125) PRIMARY KEY NOT NULL,
+password VARCHAR(255) NOT NULL,
+user_type VARCHAR(10) NOT NULL);
+
+CREATE TABLE student (
+student_id VARCHAR(125) PRIMARY KEY NOT NULL,
+name VARCHAR(125) NOT NULL,
+DOB DATE NOT NULL,
+gender  CHAR NOT NULL,
+address  VARCHAR(255) NOT NULL,
+phone VARCHAR(15) NOT NULL,
+email  VARCHAR(50) NOT NULL);
+
+CREATE TABLE teacher (
+teacher_id VARCHAR(125) NOT NULL,
+classroom  VARCHAR NOT NULL,
+phone VARCHAR(15) NOT NULL,
+email  VARCHAR(50) NOT NULL);
+
+CREATE TABLE fees (
+student_id VARCHAR(125) PRIMARY KEY NOT NULL,
+amount  DOUBLE NOT NULL,
+date_to_pay DATE NOT NULL,
+paid BOOLEAN NOT NULL);
+
+ALTER TABLE student ADD CONSTRAINT student_student_id_users_username FOREIGN KEY (student_id) REFERENCES users(username);
+ALTER TABLE teacher ADD CONSTRAINT teacher_teacher_id_users_username FOREIGN KEY (teacher_id) REFERENCES users(username);
+ALTER TABLE fees ADD CONSTRAINT fees_student_id_student_student_id FOREIGN KEY (student_id) REFERENCES student(student_id);
